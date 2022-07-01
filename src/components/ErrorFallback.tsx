@@ -10,7 +10,6 @@ import {
   Typography,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-const Yash = require("../images/Yash.jpg").default;
 
 export const ErrorFallback: React.FC = () => {
   return (
@@ -25,10 +24,8 @@ export const ErrorFallback: React.FC = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Avatar alt="Yash Oza" src={Yash} />
-          &nbsp; &nbsp; &nbsp;
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Yash Oza
+            Projects
           </Typography>
         </Toolbar>
       </AppBar>
