@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js --mode production",
     "test": "jest",
-    "eslint": "eslint src/**",
+    "eslint": "eslint . --ext .ts",
     "start": "webpack serve  --hot --open"
   },
   "repository": {
@@ -28,6 +28,7 @@
     "@mui/material": "^5.8.6",
     "@svgr/webpack": "^6.2.1",
     "apexcharts": "^3.35.3",
+    "axios": "^0.27.2",
     "docx-loader": "^1.0.4",
     "file-loader": "^6.2.0",
     "react": "^17.0.2",
@@ -35,16 +36,21 @@
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.4",
     "react-hook-form": "^7.33.0",
+    "react-multi-progress": "^1.1.5",
     "react-router-dom": "^6.3.0",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",
     "typewriter-effect": "^2.18.2"
   },
   "devDependencies": {
+    "@types/file-loader": "^5.0.1",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
+    "@typescript-eslint/eslint-plugin": "^5.30.0",
+    "@typescript-eslint/parser": "^5.30.0",
     "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^6.7.1",
+    "eslint": "^8.18.0",
     "html-webpack-plugin": "^5.5.0",
     "source-map-loader": "^4.0.0",
     "webpack": "^5.73.0",

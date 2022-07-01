@@ -143,5 +143,34 @@ export const useStyles: any = makeStyles<Theme, Props>((theme) =>
       maxWidth: "inherit",
       zIndex: 100,
     },
+    multiProgressContainer: {
+      width: "92%",
+      height: "10px",
+      position: "relative",
+      border: "0",
+      overflow: "hidden",
+      margin: "auto",
+    },
+    multiProcessBackground: {
+      backgroundColor: "#fff",
+      width: "100%",
+      height: "100%",
+      position: "absolute",
+      top: 0,
+      left: 0,
+    },
+    multiProgressElement: {
+      backgroundColor: "#fff",
+      width: "10%", //Change
+      zIndex: 8,
+      height: "100%",
+      top: 0,
+      left: "0",
+      position: "absolute",
+      transition: "width 0.6s ease-in-out, left 6s ease-in-out",
+      color: "red",
+      textAlign: "center",
+      fontSize: 8,
+    },
   })
 );

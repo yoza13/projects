@@ -89,13 +89,6 @@ export const NavigationBar: React.FC = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Projects
           </Typography>
-          <>
-            <Switch
-              onChange={() => setIsDarkTheme(!isDarkTheme)}
-              checked={isDarkTheme}
-            />
-            <NightlightOutlinedIcon />
-          </>
           <SwipeableDrawer
             open={openDrawer}
             onClose={() => setOpenDrawer(false)}

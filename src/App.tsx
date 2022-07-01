@@ -11,6 +11,7 @@ import { ErrorFallback } from "./components/ErrorFallback";
 import { WeatherSearch } from "./components/WeatherApp/WeatherSearchUI";
 import { Calculator } from "./components/Calculator/Calculator";
 import { Minesweeper } from "./components/MineSweeper/Game";
+import { Home } from "./components/Home";
 import { ToDoApp } from "./components/ToDo/ToDoApp";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
@@ -36,6 +37,7 @@ export const App = () => {
         <Router>
           <NavigationBar />
           <Routes>
+            <Route path="/" element={<Home />}></Route>
             <Route path="/weather-app" element={<WeatherSearch />}></Route>
             {/* <Route path="/projects/calculator" element={<Calculator />}></Route> */}
             <Route path="/todo" element={<ToDoApp />}></Route>
