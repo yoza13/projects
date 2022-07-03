@@ -8,8 +8,8 @@ import * as React from "react";
 import { NavigationBar } from "./components/NavigationBar";
 import { Footer } from "./components/Footer";
 import { ErrorFallback } from "./components/ErrorFallback";
-import { WeatherSearch } from "./components/WeatherApp/WeatherSearchUI";
-import { Calculator } from "./components/Calculator/Calculator";
+import { WeatherSearch } from "./components/WeatherApp/WeatherSearch";
+//import { Calculator } from "./components/Calculator/Calculator";
 import { Minesweeper } from "./components/MineSweeper/Game";
 import { Home } from "./components/Home";
 import { ToDoApp } from "./components/ToDo/ToDoApp";
@@ -17,12 +17,6 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 
 export const App = () => {
-  const [isDarkTheme, setIsDarkTheme] = React.useState<boolean>(false);
-  const dark = {
-    palette: {
-      mode: "dark" as PaletteMode,
-    },
-  };
   const light = {
     palette: {
       mode: "light" as PaletteMode,
@@ -30,9 +24,7 @@ export const App = () => {
   };
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-      <ThemeProvider
-        theme={isDarkTheme ? createTheme(dark) : createTheme(light)}
-      >
+      <ThemeProvider theme={createTheme(light)}>
         <CssBaseline />
         <Router>
           <NavigationBar />

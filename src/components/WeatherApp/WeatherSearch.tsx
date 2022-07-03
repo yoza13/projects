@@ -15,6 +15,13 @@ import { Controller, useForm } from "react-hook-form";
 import AppContext from "../../ApplicationContext";
 import { useStyles } from "../../useStyles";
 import TemperatureDetails from "./TemperatureDetails";
+import axios from "axios";
+
+interface callApiProps {
+  city: string;
+  state: string;
+  zip: string;
+}
 
 export const WeatherSearch: React.FC = () => {
   const [temperature, setTemperature] = React.useState<object>({});
@@ -28,28 +35,19 @@ export const WeatherSearch: React.FC = () => {
   } = useForm();
   const { isDarkTheme } = React.useContext(AppContext);
   const classes = useStyles({ isDarkTheme });
-  const callApi = async (data) => {
+  const callApi = async (data: callApiProps) => {
     const { state, city, zip } = data;
     setIsLoading(true);
-    const result = await fetch(
-      `${
-        window.location.hostname === "localhost"
-          ? "http://localhost:5000"
-          : "https://www.yashvoza.com"
-      }/api/weather-search`,
+    const {
+      data: { weatherData },
+    } = await axios.post(
+      "https://silfvb20rf.execute-api.us-east-1.amazonaws.com/staging",
       {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          state,
-          city,
-          zip,
-        }),
+        state,
+        city,
+        zip,
       }
     );
-    const { weatherData } = await result.json();
     setIsLoading(false);
     if (weatherData.cod === 200) {
       setIsError(false);
