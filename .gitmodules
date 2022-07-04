@@ -1,3 +1,0 @@
-[submodule "minesweeper"]
-	path = minesweeper
-	url = https://github.com/yoza13/minesweeper-typescript.git
