@@ -35,15 +35,6 @@ export const Home: React.FC = () => {
 
   React.useEffect(() => {
     async function callGithub() {
-      const { data: weather } = await axios.post(
-        "https://silfvb20rf.execute-api.us-east-1.amazonaws.com/staging",
-        {
-          state: "",
-          city: "Edison",
-          zip: "",
-        }
-      );
-      console.log(weather);
       const { data: repoDetails } = await axios.get(
         "https://api.github.com/users/yoza13/repos"
       );
