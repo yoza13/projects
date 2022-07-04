@@ -41,7 +41,7 @@ export const WeatherSearch: React.FC = () => {
     const {
       data: { weatherData },
     } = await axios.post(
-      "https://silfvb20rf.execute-api.us-east-1.amazonaws.com/staging",
+      "https://fnc7us5mwh.execute-api.us-east-1.amazonaws.com/staging/weather-api",
       {
         state,
         city,
