@@ -121,7 +121,7 @@ export const Home: React.FC = () => {
                 >
                   Check Source Repo
                 </Link>
-                {/* {project.home_page && (
+                {project.home_page && (
                   <Link
                     href={project.home_page}
                     variant="body2"
@@ -130,7 +130,7 @@ export const Home: React.FC = () => {
                   >
                     See deployed code
                   </Link>
-                )} */}
+                )}
               </Stack>
             </CardActions>
           </Card>
