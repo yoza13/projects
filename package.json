@@ -31,7 +31,7 @@
     "axios": "^0.27.2",
     "docx-loader": "^1.0.4",
     "file-loader": "^6.2.0",
-    "minesweeper-typescript": "github:yoza13/minesweeper-typescript",
+    "minesweeper": "git+https://github.com/yoza13/minesweeper-typescript.git",
     "react": "^17.0.2",
     "react-apexcharts": "^1.4.0",
     "react-dom": "^17.0.2",

@@ -150,6 +150,7 @@ export const useStyles: any = makeStyles<Theme, Props>((theme) =>
       border: "0",
       overflow: "hidden",
       margin: "auto",
+      borderRadius: "400px",
     },
     multiProcessBackground: {
       backgroundColor: "#fff",

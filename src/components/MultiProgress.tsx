@@ -47,6 +47,7 @@ const createElementArray = (elements: ProgressElement[]) => {
           color: "#fff",
           textAlign: "center",
           fontSize: "1em",
+          borderRadius: "0 40px 40px 0",
         }}
         key={i}
       ></Box>

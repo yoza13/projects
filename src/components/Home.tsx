@@ -8,6 +8,7 @@ import {
   Typography,
   CardActions,
   Link,
+  Stack,
 } from "@mui/material";
 import { useStyles } from "../useStyles";
 import axios from "axios";
@@ -24,6 +25,7 @@ interface ProjectInformationProp {
   description: string;
   size: number;
   html_url: string;
+  home_page?: string;
   languages: languageProps[];
 }
 
@@ -61,6 +63,7 @@ export const Home: React.FC = () => {
           name: repo.name,
           description: repo.description,
           html_url: repo.html_url,
+          home_page: repo.homepage,
           languages: langObjToSend,
           size: repo.size,
         };
@@ -109,9 +112,26 @@ export const Home: React.FC = () => {
               </Box>
             </CardContent>
             <CardActions>
-              <Link href={project.html_url} variant="body2" target="_blank">
-                Learn More
-              </Link>
+              <Stack>
+                <Link
+                  underline="none"
+                  href={project.html_url}
+                  variant="body2"
+                  target="_blank"
+                >
+                  Check Source Repo
+                </Link>
+                {/* {project.home_page && (
+                  <Link
+                    href={project.home_page}
+                    variant="body2"
+                    underline="none"
+                    target="_blank"
+                  >
+                    See deployed code
+                  </Link>
+                )} */}
+              </Stack>
             </CardActions>
           </Card>
         );
