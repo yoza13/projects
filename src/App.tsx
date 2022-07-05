@@ -10,7 +10,7 @@ import { Footer } from "./components/Footer";
 import { ErrorFallback } from "./components/ErrorFallback";
 import { WeatherSearch } from "./components/WeatherApp/WeatherSearch";
 //import { Calculator } from "./components/Calculator/Calculator";
-import { Minesweeper } from "minesweeper-typescript";
+import { Minesweeper } from "mui-minesweeper";
 import { Home } from "./components/Home";
 import { ToDoApp } from "./components/ToDo/ToDoApp";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
