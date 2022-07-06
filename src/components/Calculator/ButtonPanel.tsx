@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Box, Button, Stack } from "@mui/material";
-import AppContext from "../../ApplicationContext";
 import { useStyles } from "../../useStyles";
 
 interface ButtonPanelProps {
@@ -24,8 +23,7 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = ({
   operator,
   setOperator,
 }) => {
-  const { isDarkTheme } = React.useContext(AppContext);
-  const classes = useStyles({ isDarkTheme });
+  const classes = useStyles();
   const operate = ({ operation }: OperateProps) => {
     const updatedValues = addedValues.concat([value]);
     let result;

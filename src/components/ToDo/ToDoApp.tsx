@@ -15,7 +15,6 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import AppContext from "../../ApplicationContext";
 import { useStyles } from "../../useStyles";
 
 interface ToDoItems {
@@ -23,11 +22,10 @@ interface ToDoItems {
 }
 
 export const ToDoApp: React.FC = () => {
-  const { isDarkTheme } = React.useContext(AppContext);
   const [todoItems, setTodoItems] = React.useState<ToDoItems[]>([]);
   const [completeItems, setCompleteItems] = React.useState<string[]>([]);
   const [text, setText] = React.useState<string>("");
-  const classes = useStyles({ isDarkTheme });
+  const classes = useStyles();
   const handleCheck = (text: string) => {
     const updatedRespArray = completeItems.includes(text)
       ? completeItems.filter((o) => o !== text)

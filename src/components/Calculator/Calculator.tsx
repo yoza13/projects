@@ -1,12 +1,10 @@
 import * as React from "react";
 import { Box, Stack, Container, Card, CardHeader } from "@mui/material";
-import AppContext from "../../ApplicationContext";
 import { useStyles } from "../../useStyles";
 import { ButtonPanel } from "./ButtonPanel";
 
 export const Calculator: React.FC = () => {
-  const { isDarkTheme } = React.useContext(AppContext);
-  const classes = useStyles({ isDarkTheme });
+  const classes = useStyles();
   const [value, setValue] = React.useState<string>("0");
   const [addedValues, setAddedValues] = React.useState<string[]>([]);
   const [operator, setOperator] = React.useState<string>("");

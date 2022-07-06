@@ -1,22 +1,17 @@
 import {
   AppBar,
-  Avatar,
   Box,
-  Collapse,
   Fab,
   IconButton,
+  Link,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   SwipeableDrawer,
-  Switch,
   Toolbar,
-  Typography,
 } from "@mui/material";
 import * as React from "react";
-import AppContext from "../ApplicationContext";
-import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import { useStyles } from "../useStyles";
@@ -24,7 +19,6 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { ScrollTop } from "./ScrollTop";
 
 export const NavigationBar: React.FC = () => {
-  const { isDarkTheme, setIsDarkTheme } = React.useContext(AppContext);
   const [openDrawer, setOpenDrawer] = React.useState(false);
   const navigate = useNavigate();
   const leftNavItems = [
@@ -86,9 +80,15 @@ export const NavigationBar: React.FC = () => {
             <MenuIcon />
           </IconButton>
           &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Link
+            underline="none"
+            href="/"
+            color="#fff"
+            variant="h5"
+            sx={{ letterSpacing: "0.1em" }}
+          >
             Projects
-          </Typography>
+          </Link>
           <SwipeableDrawer
             open={openDrawer}
             onClose={() => setOpenDrawer(false)}

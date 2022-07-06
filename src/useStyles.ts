@@ -1,9 +1,6 @@
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-type Props = {
-  isDarkTheme: boolean;
-};
 
-export const useStyles: any = makeStyles<Theme, Props>((theme) =>
+export const useStyles: any = makeStyles<Theme>((theme) =>
   createStyles({
     drawerListItem: {
       color: "inherit",
@@ -13,23 +10,13 @@ export const useStyles: any = makeStyles<Theme, Props>((theme) =>
       maxWidth: "inherit",
       marginBottom: "10rem",
     },
-    homePageAvatar: {
-      width: 120,
-      height: 120,
-      border: "5px solid #8f40e9",
-      borderColor: (props) =>
-        props.isDarkTheme
-          ? theme.palette.common.black
-          : theme.palette.primary.dark,
-    },
     calculatorBox: {
       width: "fit-content",
       margin: "auto",
     },
     displayField: {
       color: "#fff",
-      backgroundColor: (props) =>
-        props.isDarkTheme ? theme.palette.grey.A700 : theme.palette.grey[400],
+      backgroundColor: theme.palette.grey[400],
       fontWeight: "bold",
       height: "3em",
       textAlign: "right",
@@ -46,18 +33,14 @@ export const useStyles: any = makeStyles<Theme, Props>((theme) =>
     },
     buttons: {
       fontSize: "24px",
-      color: (props) => (props.isDarkTheme ? "#fff" : "#000"),
+      color: "#000",
       borderRight: "1px solid",
       borderRadius: 0,
       width: "25%",
-      backgroundColor: (props) =>
-        props.isDarkTheme ? theme.palette.grey.A700 : theme.palette.grey[200],
+      backgroundColor: theme.palette.grey[200],
       "&:last-child": {
         borderRight: "none",
-        backgroundColor: (props) =>
-          props.isDarkTheme
-            ? theme.palette.warning.dark
-            : theme.palette.warning.light,
+        backgroundColor: theme.palette.warning.light,
       },
       "&.wide": {
         width: "50%",
@@ -111,27 +94,9 @@ export const useStyles: any = makeStyles<Theme, Props>((theme) =>
       justifyContent: "center",
       alignItems: "center",
     },
-    downloadLinks: {
-      border: (props) =>
-        props.isDarkTheme
-          ? `10px solid ${theme.palette.secondary.dark}`
-          : `10px solid ${theme.palette.primary.dark}`,
-      padding: " 1rem 2rem",
-      marginBottom: "2rem",
-      textDecoration: "none",
-      color: "#fff",
-      fontWeight: "bold",
-      backgroundImage: (props) =>
-        props.isDarkTheme
-          ? `linear-gradient(${theme.palette.secondary.main}, ${theme.palette.secondary.light})`
-          : `linear-gradient(${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-    },
     footer: {
       borderTop: "1px solid",
-      backgroundColor: (props) =>
-        props.isDarkTheme
-          ? theme.palette.grey[900]
-          : theme.palette.primary.main,
+      backgroundColor: theme.palette.primary.main,
       color: "#fff",
       textAlign: "center",
       paddingTop: "20px",

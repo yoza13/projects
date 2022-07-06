@@ -12,7 +12,6 @@ import {
   TextField,
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
-import AppContext from "../../ApplicationContext";
 import { useStyles } from "../../useStyles";
 import TemperatureDetails from "./TemperatureDetails";
 import axios from "axios";
@@ -33,8 +32,7 @@ export const WeatherSearch: React.FC = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const { isDarkTheme } = React.useContext(AppContext);
-  const classes = useStyles({ isDarkTheme });
+  const classes = useStyles();
   const callApi = async (data: callApiProps) => {
     const { state, city, zip } = data;
     setIsLoading(true);

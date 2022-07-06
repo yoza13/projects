@@ -9,6 +9,9 @@ import {
   CardActions,
   Link,
   Stack,
+  Pagination,
+  Slide,
+  Divider,
 } from "@mui/material";
 import { useStyles } from "../useStyles";
 import axios from "axios";
@@ -25,7 +28,6 @@ interface ProjectInformationProp {
   description: string;
   size: number;
   html_url: string;
-  home_page?: string;
   languages: languageProps[];
 }
 
@@ -34,6 +36,11 @@ export const Home: React.FC = () => {
   const [projectInformation, setProjectInformation] = React.useState<
     ProjectInformationProp[]
   >([]);
+  const perPage = 3;
+  const totalPages = projectInformation.length / perPage;
+  const [page, setPage] = React.useState<number>(0);
+  const startVar = page * perPage;
+  const endVar = page * perPage + perPage;
 
   React.useEffect(() => {
     async function callGithub() {
@@ -63,13 +70,15 @@ export const Home: React.FC = () => {
           name: repo.name,
           description: repo.description,
           html_url: repo.html_url,
-          home_page: repo.homepage,
           languages: langObjToSend,
           size: repo.size,
         };
       });
-      console.log(projectDetails);
-      setProjectInformation(projectDetails);
+      const finalObj = projectDetails.sort(
+        (a: ProjectInformationProp, b: ProjectInformationProp) =>
+          b.size - a.size
+      );
+      setProjectInformation(finalObj);
     }
     callGithub();
   }, []);
@@ -83,9 +92,25 @@ export const Home: React.FC = () => {
   };
   return (
     <Container className={classes.appContainer}>
-      {projectInformation.map((project) => {
+      <Slide direction="left" in={true}>
+        <Typography
+          variant="h5"
+          variantMapping={{ h5: "h1" }}
+          sx={{ fontWeight: "bold", mt: 4, mb: 1 }}
+          align="center"
+        >
+          Projects
+        </Typography>
+      </Slide>
+      <Slide direction="right" in={true}>
+        <Divider className={classes.dividerStyle} />
+      </Slide>
+      {projectInformation.slice(startVar, endVar).map((project) => {
         return (
-          <Card raised={true} sx={{ width: "80%", margin: "auto", mt: 4 }}>
+          <Card
+            raised={true}
+            sx={{ width: "80%", margin: "auto", mt: 4, borderRadius: "20px" }}
+          >
             <CardHeader
               title={project.name}
               subheader={project.description}
@@ -119,23 +144,23 @@ export const Home: React.FC = () => {
                   variant="body2"
                   target="_blank"
                 >
-                  Check Source Repo
+                  LEARN MORE
                 </Link>
-                {project.home_page && (
-                  <Link
-                    href={project.home_page}
-                    variant="body2"
-                    underline="none"
-                    target="_blank"
-                  >
-                    See deployed code
-                  </Link>
-                )}
               </Stack>
             </CardActions>
           </Card>
         );
       })}
+      <Pagination
+        sx={{ mt: 4, "& ul": { justifyContent: "center" } }}
+        count={totalPages}
+        variant="outlined"
+        shape="rounded"
+        color="primary"
+        onChange={(event) =>
+          setPage(Number((event.target as HTMLImageElement).textContent) - 1)
+        }
+      />
     </Container>
   );
 };
