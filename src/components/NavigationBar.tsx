@@ -3,25 +3,34 @@ import {
   Box,
   Fab,
   IconButton,
-  Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  SwipeableDrawer,
+  MenuItem,
   Toolbar,
+  Menu,
+  Typography,
 } from "@mui/material";
 import * as React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-import { useStyles } from "../useStyles";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import SearchIcon from "@mui/icons-material/Search";
 import { ScrollTop } from "./ScrollTop";
 
 export const NavigationBar: React.FC = () => {
-  const [openDrawer, setOpenDrawer] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   const navigate = useNavigate();
   const leftNavItems = [
+    {
+      title: "Home",
+      page: "/",
+    },
     {
       title: "Weather App",
       page: "/weather-app",
@@ -38,69 +47,62 @@ export const NavigationBar: React.FC = () => {
       title: "Mine-Sweeper (Single Player Game)",
       page: "/mine-sweeper",
     },
+    {
+      title: "Phot Search through Pexel",
+      page: "/photo-search",
+    },
   ];
-  const drawer = () => {
-    const classes = useStyles();
-    return (
-      <Box onClick={() => setOpenDrawer(false)}>
-        <List component="ul" className={classes.listStyleDisc}>
-          {leftNavItems.map((item, index) => {
-            return (
-              <ListItem
-                key={index + item.title}
-                component={RouterLink}
-                to={item.page}
-                className={classes.drawerListItem}
-              >
-                <ListItemButton
-                  sx={{ pl: 4 }}
-                  onClick={() => {
-                    navigate(item.page);
-                  }}
-                >
-                  <ListItemText primary={item.title} />
-                </ListItemButton>
-              </ListItem>
-            );
-          })}
-        </List>
-      </Box>
-    );
-  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar>
         <Toolbar>
+          <IconButton color="inherit" edge="start">
+            <MenuIcon />
+          </IconButton>
+          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            Projects
+          </Typography>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
-            onClick={() => setOpenDrawer(true)}
+            onClick={handleMenu}
           >
-            <MenuIcon />
+            <SearchIcon />
           </IconButton>
-          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
-          <Link
-            underline="none"
-            href="/"
-            color="#fff"
-            variant="h5"
-            sx={{ letterSpacing: "0.1em" }}
-          >
-            Projects
-          </Link>
-          <SwipeableDrawer
-            open={openDrawer}
-            onClose={() => setOpenDrawer(false)}
-            onOpen={() => setOpenDrawer(true)}
-            PaperProps={{
-              sx: {
-                width: "300px",
-              },
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
             }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
           >
-            {drawer()}
-          </SwipeableDrawer>
+            {leftNavItems.map((item, index) => {
+              return (
+                <MenuItem
+                  key={index + item.title}
+                  component={RouterLink}
+                  to={item.page}
+                  onClick={() => {
+                    handleClose();
+                    navigate(item.page);
+                  }}
+                >
+                  {item.title}
+                </MenuItem>
+              );
+            })}
+          </Menu>
         </Toolbar>
       </AppBar>
       <Toolbar id="back-to-top-anchor" />

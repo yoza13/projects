@@ -29,7 +29,7 @@ export const ScrollTop: React.FC<ScrollTopProps> = ({ children }) => {
       <Box
         onClick={handleClick}
         role="presentation"
-        sx={{ position: "fixed", bottom: 75, right: 16 }}
+        sx={{ position: "fixed", bottom: 75, right: 16, zIndex: 100 }}
       >
         {children}
       </Box>

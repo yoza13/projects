@@ -3,61 +3,64 @@ import { Box, Button, Stack } from "@mui/material";
 import { useStyles } from "../../useStyles";
 
 interface ButtonPanelProps {
-  setValue: (value: string) => void;
-  value: string;
-  addedValues: string[];
-  setAddedValues: (value: string[]) => void;
+  setValue: (value: number[]) => void;
+  value: number[];
   operator: string;
   setOperator: (value: string) => void;
-}
-
-interface OperateProps {
-  operation: string;
 }
 
 export const ButtonPanel: React.FC<ButtonPanelProps> = ({
   setValue,
   value,
-  addedValues,
-  setAddedValues,
   operator,
   setOperator,
 }) => {
   const classes = useStyles();
-  const operate = ({ operation }: OperateProps) => {
-    const updatedValues = addedValues.concat([value]);
-    let result;
-    if (operator) {
-      const allValues = value.split(operator);
-      if (operator === "+") {
-        result = parseInt(allValues[0]) + parseInt(allValues[1]);
-      } else if (operator === "-") {
-        result = parseInt(allValues[0]) - parseInt(allValues[1]);
-      } else if (operator === "*") {
-        result = parseInt(allValues[0]) * parseInt(allValues[1]);
-      } else if (operator === "/") {
-        result = parseInt(allValues[0]) / parseInt(allValues[1]);
-      }
-    }
-    result = result.toString();
-    setOperator(operation);
-    if (operation === "=") {
-      setValue(result);
+  const typeNumber = (event: any) => {
+    const typedValue = Number((event.target as HTMLInputElement).textContent);
+    if (operator === "=") {
+      setValue([typedValue]);
+      setOperator("");
+    } else if (operator === "") {
+      setValue([Number("" + value + typedValue)]);
     } else {
-      setAddedValues(result !== undefined ? [result] : updatedValues);
-      setValue(
-        result !== undefined ? `${result}${operation}` : `${value}${operation}`
-      );
+      setValue(value.concat(typedValue));
     }
   };
+  const operate = (event: any) => {
+    const operation = (event.target as HTMLInputElement).textContent;
+
+    if (value.length === 1 || operator === "") {
+      console.log("+++++");
+      setOperator(operation);
+    } else {
+      let result;
+      switch (operator) {
+        case "+":
+          result = value[0] + value[1];
+          break;
+        case "-":
+          result = value[0] - value[1];
+          break;
+        case "*":
+          result = value[0] * value[1];
+          break;
+        case "÷":
+          result = value[0] / value[1];
+          break;
+      }
+      setValue([result]);
+      setOperator(operation);
+    }
+  };
+
   return (
     <Box className={classes.buttonPanel}>
       <Stack direction="row" className={classes.buttonStack}>
         <Button
           className={classes.buttons}
           onClick={() => {
-            setAddedValues([]);
-            setValue("0");
+            setValue([]);
             setOperator("");
           }}
         >
@@ -66,12 +69,11 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = ({
         <Button
           className={classes.buttons}
           onClick={() => {
-            setValue(
-              ([-1, -0].includes(Math.sign(parseInt(value)))
-                ? Math.abs(parseInt(value))
-                : Math.abs(parseInt(value)) * -1
-              ).toString()
-            );
+            if (operator === "") {
+              setValue([value[0] * -1]);
+            } else {
+              setValue([value[0], value[1] * -1]);
+            }
           }}
         >
           +/-
@@ -79,114 +81,69 @@ export const ButtonPanel: React.FC<ButtonPanelProps> = ({
         <Button
           className={classes.buttons}
           onClick={() => {
-            const percentValue = parseInt(value) / 100;
-            setValue(percentValue.toString());
+            if (operator === "") {
+              setValue([value[0] / 100]);
+            } else {
+              setValue([value[0], value[1] / 100]);
+            }
           }}
         >
           %
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => operate({ operation: "/" })}
-        >
+        <Button className={classes.buttons} onClick={operate}>
           ÷
         </Button>
       </Stack>
       <Stack direction="row" className={classes.buttonStack}>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}7`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           7
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}8`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           8
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}9`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           9
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => operate({ operation: "*" })}
-        >
-          X
+        <Button className={classes.buttons} onClick={operate}>
+          *
         </Button>
       </Stack>
       <Stack direction="row" className={classes.buttonStack}>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}4`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           4
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}5`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           5
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}6`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           6
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => operate({ operation: "-" })}
-        >
+        <Button className={classes.buttons} onClick={operate}>
           -
         </Button>
       </Stack>
       <Stack direction="row" className={classes.buttonStack}>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}1`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           1
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}2`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           2
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}3`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           3
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => operate({ operation: "+" })}
-        >
+        <Button className={classes.buttons} onClick={operate}>
           +
         </Button>
       </Stack>
       <Stack direction="row" className={classes.buttonStack}>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}0`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           0
         </Button>
-        <Button
-          className={classes.buttons}
-          onClick={() => setValue(`${value}.`)}
-        >
+        <Button className={classes.buttons} onClick={typeNumber}>
           .
         </Button>
-        <Button
-          className={`${classes.buttons} wide`}
-          onClick={() => operate({ operation: "=" })}
-        >
+        <Button className={`${classes.buttons} wide`} onClick={operate}>
           =
         </Button>
       </Stack>
