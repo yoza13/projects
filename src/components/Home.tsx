@@ -37,7 +37,7 @@ export const Home: React.FC = () => {
     ProjectInformationProp[]
   >([]);
   const perPage = 3;
-  const totalPages = projectInformation.length / perPage;
+  const totalPages = Math.ceil(projectInformation.length / perPage);
   const [page, setPage] = React.useState<number>(0);
   const startVar = page * perPage;
   const endVar = page * perPage + perPage;
