@@ -62,7 +62,7 @@ export const WeatherSearch: React.FC = () => {
       <Card raised={true} className={classes.contentBox}>
         <CardHeader
           title="Weather App"
-          subheader="Enter any of the below details for getting the temperature in celsious to the entered place"
+          subheader="Enter any of the below details for getting the temperature in celsious to the entered place."
         />
         <Box sx={{ width: "50%", margin: "auto" }}>
           <form autoComplete="off" onSubmit={handleSubmit(callApi)}>
