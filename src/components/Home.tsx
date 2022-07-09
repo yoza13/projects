@@ -86,6 +86,7 @@ export const Home: React.FC = () => {
     HTML: "#3A2E39",
     JavaScript: "#f1e05a",
     TypeScript: "3178c6",
+    CSS: "#563d7c",
     SQL: "purple",
     JAVA: "turqoise",
     ".NET": "maroon",
