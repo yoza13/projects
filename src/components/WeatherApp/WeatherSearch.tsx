@@ -38,14 +38,11 @@ export const WeatherSearch: React.FC = () => {
     setIsLoading(true);
     const {
       data: { weatherData },
-    } = await axios.post(
-      "https://fnc7us5mwh.execute-api.us-east-1.amazonaws.com/staging/weather-api",
-      {
-        state,
-        city,
-        zip,
-      }
-    );
+    } = await axios.post(process.env.WEATHER_URL, {
+      state,
+      city,
+      zip,
+    });
     setIsLoading(false);
     if (weatherData.cod === 200) {
       setIsError(false);
