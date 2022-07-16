@@ -1,5 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
+const dotenv = require("dotenv");
+
+// this will update the process.env with environment variables in .env file
+dotenv.config();
 module.exports = {
   entry: "./src/index.tsx",
   target: "web",
@@ -63,6 +68,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "src", "index.html"),
       favicon: "./src/Yash.ico",
+    }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env),
     }),
   ],
 };

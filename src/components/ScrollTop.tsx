@@ -12,7 +12,6 @@ export const ScrollTop: React.FC<ScrollTopProps> = ({ children }) => {
   });
 
   const handleClick: React.MouseEventHandler<HTMLDivElement> = (event) => {
-    console.log(event);
     const anchor = (
       (event.target as Element).ownerDocument || document
     ).querySelector("#back-to-top-anchor");
