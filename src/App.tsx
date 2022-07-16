@@ -9,7 +9,7 @@ import { NavigationBar } from "./components/NavigationBar";
 import { Footer } from "./components/Footer";
 import { ErrorFallback } from "./components/ErrorFallback";
 import { WeatherSearch } from "./components/WeatherApp/WeatherSearch";
-import { Calculator } from "./components/Calculator/Calculator";
+import { Calculator } from "calculator-typescript";
 import { Minesweeper } from "mui-minesweeper";
 import { Home } from "./components/Home";
 import { ToDoApp } from "./components/ToDo/ToDoApp";
