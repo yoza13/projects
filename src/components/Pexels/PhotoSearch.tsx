@@ -24,10 +24,7 @@ interface PhotosProp {
   alt: string;
   photographer: string;
   url: string;
-  src: {
-    original: string;
-    tiny: string;
-  };
+  src: string;
 }
 
 interface SearchData {
@@ -70,20 +67,13 @@ export const PhotoSearch: React.FC = () => {
   React.useEffect(() => {
     setIsLoading(true);
     async function getPhoto() {
-      const { data } = await axios.get("https://api.pexels.com/v1/curated", {
-        params: {
-          per_page: 80,
-        },
-        headers: {
-          Authorization:
-            "563492ad6f917000010000014fcb65ef95bf436fb53bd99753d64163",
-        },
-      });
+      const { data } = await axios.get(process.env.CURATED_PHOTOS);
       setPhotos(data.photos);
       setIsLoading(false);
     }
     getPhoto();
   }, []);
+
   return (
     <Container className={classes.appContainer}>
       <Slide direction="left" in={true}>
@@ -143,8 +133,8 @@ export const PhotoSearch: React.FC = () => {
           return (
             <ImageListItem key={photo.id}>
               <img
-                src={photo.src.tiny}
-                srcSet={photo.src.tiny}
+                src={photo.src}
+                srcSet={photo.src}
                 alt={photo.alt}
                 loading="lazy"
               />
