@@ -48,16 +48,10 @@ export const PhotoSearch: React.FC = () => {
 
   const searchPhotos = React.useCallback(async ({ search }: SearchData) => {
     setIsLoading(true);
-    const { data: searchedPhoto } = await axios.get(
-      "https://api.pexels.com/v1/search",
+    const { data: searchedPhoto } = await axios.post(
+      process.env.CURATED_PHOTOS,
       {
-        params: {
-          query: search,
-        },
-        headers: {
-          Authorization:
-            "563492ad6f917000010000014fcb65ef95bf436fb53bd99753d64163",
-        },
+        query: search,
       }
     );
     setIsLoading(false);

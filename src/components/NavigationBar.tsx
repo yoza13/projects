@@ -48,7 +48,7 @@ export const NavigationBar: React.FC = () => {
       page: "/mine-sweeper",
     },
     {
-      title: "Phot Search through Pexel",
+      title: "Photo Search through Pexel",
       page: "/photo-search",
     },
   ];
