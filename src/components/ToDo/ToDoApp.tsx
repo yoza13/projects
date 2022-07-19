@@ -1,38 +1,65 @@
 import * as React from "react";
 import {
-  Box,
   Button,
   Card,
   CardHeader,
+  CircularProgress,
   Container,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import { useStyles } from "../../useStyles";
+import axios from "axios";
 
 interface ToDoItems {
-  text: string;
+  Task: string;
+  id: number;
 }
 
 export const ToDoApp: React.FC = () => {
   const [todoItems, setTodoItems] = React.useState<ToDoItems[]>([]);
-  const [completeItems, setCompleteItems] = React.useState<string[]>([]);
   const [text, setText] = React.useState<string>("");
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const classes = useStyles();
-  const handleCheck = (text: string) => {
-    const updatedRespArray = completeItems.includes(text)
-      ? completeItems.filter((o) => o !== text)
-      : completeItems.concat(text);
-
-    setCompleteItems(updatedRespArray);
+  const deleteItem = async (id: number) => {
+    setIsLoading(true);
+    const { data } = await axios.delete(`${process.env.TODO_ITEMS}?id=${id}`);
+    setIsLoading(false);
+    setTodoItems(
+      data.body.Count === 0
+        ? [{ id: "123", Task: "No Task Found" }]
+        : data.body.Items
+    );
   };
+  const addItem = async (taskName: string) => {
+    setIsLoading(true);
+    const { data } = await axios.put(process.env.TODO_ITEMS, {
+      taskName,
+    });
+    setIsLoading(false);
+    setTodoItems(data.body.Items);
+  };
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    async function getTasks() {
+      const { data } = await axios.get(process.env.TODO_ITEMS);
+      setTodoItems(
+        data.body.Count === 0
+          ? [{ id: "123", Task: "No Task Found" }]
+          : data.body.Items
+      );
+      setIsLoading(false);
+    }
+    getTasks();
+  }, []);
   return (
     <Container className={classes.appContainer}>
       <Card raised={true} className={classes.contentBox}>
@@ -56,50 +83,40 @@ export const ToDoApp: React.FC = () => {
           <Button
             variant="contained"
             sx={{ width: "10%" }}
-            onClick={() => {
-              setTodoItems(todoItems.concat({ text: text }));
-              setText("");
-            }}
+            onClick={() => addItem(text)}
           >
             Submit
           </Button>
         </Stack>
-        <Box sx={{ ml: 2 }}>
-          <List>
-            {todoItems?.map((items, index) => {
-              const currentText = items.text;
-              return (
-                <ListItemButton key={items.text + index}>
-                  <ListItemIcon onClick={() => handleCheck(currentText)}>
-                    {completeItems.includes(currentText) ? (
-                      <CheckCircleOutlineIcon />
+        <TableContainer>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Serial No.</TableCell>
+                <TableCell>Task</TableCell>
+                <TableCell>Delete</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {todoItems?.map((items, index) => (
+                <TableRow key={items.id}>
+                  <TableCell component="th" scope="row">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell>{items.Task}</TableCell>
+                  <TableCell onClick={() => deleteItem(items.id)}>
+                    {items.Task === "No Task Found" ? (
+                      <React.Fragment></React.Fragment>
                     ) : (
-                      <RadioButtonUncheckedIcon />
+                      <DeleteIcon />
                     )}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={items.text}
-                    sx={{
-                      textDecoration: completeItems.includes(currentText)
-                        ? "line-through"
-                        : "none",
-                    }}
-                  />
-                  <ListItemIcon
-                    onClick={() => {
-                      const newList = todoItems?.filter(
-                        (newItems) => newItems.text !== currentText
-                      );
-                      setTodoItems(newList);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </ListItemIcon>
-                </ListItemButton>
-              );
-            })}
-          </List>
-        </Box>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        {isLoading && <CircularProgress aria-busy={true} size={100} />}
       </Card>
     </Container>
   );
