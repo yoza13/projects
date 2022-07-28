@@ -106,6 +106,9 @@ export const Home: React.FC = () => {
       <Slide direction="right" in={true}>
         <Divider className={classes.dividerStyle} />
       </Slide>
+      <Typography align="right" sx={{ width: "88%" }}>
+        Page: {page} of {totalPages}
+      </Typography>
       {projectInformation.slice(startVar, endVar).map((project) => {
         return (
           <Card

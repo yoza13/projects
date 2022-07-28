@@ -14,6 +14,7 @@ import { useNavigate, Link as RouterLink } from "react-router-dom";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import SearchIcon from "@mui/icons-material/Search";
 import { ScrollTop } from "./ScrollTop";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 
 export const NavigationBar: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -50,6 +51,10 @@ export const NavigationBar: React.FC = () => {
     {
       title: "Photo Search through Pexel",
       page: "/photo-search",
+    },
+    {
+      title: "Create your own resume",
+      href: "https://www.mydigiresume.com",
     },
   ];
 
@@ -89,17 +94,37 @@ export const NavigationBar: React.FC = () => {
           >
             {leftNavItems.map((item, index) => {
               return (
-                <MenuItem
-                  key={index + item.title}
-                  component={RouterLink}
-                  to={item.page}
-                  onClick={() => {
-                    handleClose();
-                    navigate(item.page);
-                  }}
-                >
-                  {item.title}
-                </MenuItem>
+                <React.Fragment>
+                  {item.page ? (
+                    <MenuItem
+                      key={index + item.title}
+                      component={RouterLink}
+                      to={item.page}
+                      onClick={() => {
+                        handleClose();
+                        navigate(item.page);
+                      }}
+                    >
+                      {item.title}
+                    </MenuItem>
+                  ) : (
+                    <React.Fragment>
+                      <MenuItem
+                        key={index + item.title}
+                        component="a"
+                        onClick={() => {
+                          handleClose();
+                          window.open(item.href, "_blank");
+                        }}
+                      >
+                        {item.title}
+                        <IconButton aria-label="new-tag-icon">
+                          <OpenInNewIcon />
+                        </IconButton>
+                      </MenuItem>
+                    </React.Fragment>
+                  )}
+                </React.Fragment>
               );
             })}
           </Menu>
